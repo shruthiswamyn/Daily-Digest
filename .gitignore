@@ -1,0 +1,31 @@
+# Environment & virtualenv
+.venv/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs & reports
+*.log
+report.md
+script.md
+
+# Build / outputs
+#outputs/
+#outouts/   # (typo-safe)
+#knowledge/
+
+# Streamlit secrets
+.streamlit/secrets.toml
+.env
+git rm -r --cached .venv
+git commit -m "Update .gitignore to exclude .venv"
+git push -u origin main
