@@ -7,7 +7,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# ✅ Show only the banner image
+# ✅ Show banner image (relative to app.py)
 banner_path = os.path.join(os.path.dirname(__file__), "banner.png")
 st.image(banner_path, width=1500)
 
@@ -22,18 +22,23 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# ✅ Episodes section (no repeated title/description)
-outputs_dir = os.path.join(os.getcwd(), "outputs")
-files = sorted([f for f in os.listdir(outputs_dir) if f.endswith(".wav")])
-
-if not files:
-    st.warning("No audio files found in outputs/")
+# ✅ Episodes section
+outputs_dir = os.path.join(os.path.dirname(__file__), "outputs")
+if not os.path.exists(outputs_dir):
+    st.warning("Outputs folder not found!")
 else:
-    st.subheader("📚 Episodes")
-    cols = st.columns(2)
-    for i, f in enumerate(files):
-        with cols[i % 2]:
-            st.markdown(f"### 🎧 {f.replace('.wav','')}")
-            audio_bytes = open(os.path.join(outputs_dir, f), "rb").read()
-            st.audio(audio_bytes, format="audio/wav")
-            st.markdown("---")
+    files = sorted([f for f in os.listdir(outputs_dir) if f.endswith(".wav")])
+
+    if not files:
+        st.warning("No audio files found in outputs/")
+    else:
+        st.subheader("📚 Episodes")
+        cols = st.columns(2)
+        for i, f in enumerate(files):
+            with cols[i % 2]:
+                st.markdown(f"### 🎧 {f.replace('.wav','')}")
+                file_path = os.path.join(outputs_dir, f)
+                with open(file_path, "rb") as audio_file:
+                    audio_bytes = audio_file.read()
+                st.audio(audio_bytes, format="audio/wav")
+                st.markdown("---")
