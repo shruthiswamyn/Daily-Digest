@@ -9,7 +9,7 @@ st.set_page_config(
 
 # ✅ Show only the banner image
 banner_path = os.path.join(os.path.dirname(__file__), "banner.png")
-st.image(banner_path, width=2000)
+st.image(banner_path, width=1500)
 
 # ✅ Author credit below banner
 st.markdown(
